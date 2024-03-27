@@ -54,6 +54,11 @@ private final VehiculeServiceImpl vehiculeServieImpl;
 
         return devServiceImpl.CreatDev(creationdto);
     }
+    @PostMapping("/dev/add")
+    public Dev addDev(@RequestBody Dev dev) {
+        // Save the new dev to the database
+        return devRepo.save(dev);
+    }
     /**
     @PostMapping("dev/add")
     public Dev addDev(@RequestBody Dev dev){

@@ -92,10 +92,10 @@ public class AuthController {
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
         // Perform password validation
-/**
+
         if (!userServiceImpl.validateEmailForDomain(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("domaine name not supported "));
-        }*/
+        }
 
         if (!userServiceImpl.validatePassword(signUpRequest.getPassword())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Password does not meet security requirements"));
@@ -177,14 +177,15 @@ public class AuthController {
 
 
 
-/**
+
         String to = signUpRequest.getEmail();
         String subject = "Welcome to BaseEcu Platform";
         String body = "Dear " + signUpRequest.getUsername() + ",\n\n"
-                + "Thank you for signing up to our platform. We're excited to have you on board!\n\n"
-                + "To complete your registration, please click on the following link to set your password:\n"
-                + "http://localhost:4200/email-verifiy" ;
-        sendingEmailService.sendEmail(to, subject, body);*/
+                + "Welcome to our platform! We're delighted to have you join us!\n\n"
+                + "To get started, please set up your account by creating a password. Simply click on the link below:\n"
+                + "http://localhost:4200/email-verifiy:\n"
+                +"";
+        sendingEmailService.sendEmail(to, subject, body);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 

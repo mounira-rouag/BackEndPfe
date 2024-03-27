@@ -47,6 +47,9 @@ public class UserController {
             Principal connectedUser
     ) {
         try {
+            if (!userServiceImp.validatePassword(request.getNewPassword())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Password does not meet strength requirements"));
+            }
             String message = userServiceImp.changePassword(request, connectedUser);
             return ResponseEntity.ok().body(new MessageResponse(message));
         } catch (IllegalStateException e) {
@@ -96,7 +99,7 @@ public class UserController {
             senderEmailService.sendPasswordResetEmail(user.get().getEmail(), resetToken);
             return ResponseEntity.ok().body("an email was sent check you email");
         } else {
-            return ResponseEntity.badRequest().body(new MessageResponse("Email do not exist ,try again"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Email do not exist, try again"));
         }
     }
 
@@ -108,6 +111,9 @@ public class UserController {
 
         if (!newPassword.equals(ConfirmPassword)) {
             return ResponseEntity.badRequest().body(new MessageResponse("Passwords do not match."));
+        }
+        if (!userServiceImp.validatePassword(newPassword)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Password does not meet security requirements"));
         }
 
         boolean success = resetTokenServiceImpl.resetPassword(token, newPassword);
