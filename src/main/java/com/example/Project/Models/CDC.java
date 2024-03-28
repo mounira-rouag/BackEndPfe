@@ -50,6 +50,13 @@ public class CDC {
     @ManyToOne
     @JoinColumn(name = "`IdReverse`")
     private Reverse reverse;
+@JsonIgnore
+    @ManyToMany
+    @JoinTable(  name = "`FCT_BY_CDC`",
+            joinColumns = @JoinColumn(name = "`IdCDC`"),
+            inverseJoinColumns ={ @JoinColumn(name = "`IdFonction`"),
 
-
+            }
+    )
+    private List<Fonction> fonctions;
 }

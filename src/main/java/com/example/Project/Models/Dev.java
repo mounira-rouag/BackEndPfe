@@ -58,7 +58,7 @@ public class Dev {
     @ManyToOne
     @JoinColumn(name = "`IdRC`")
     private User user;
-@JsonIgnore
+    @JsonIgnore
     @ManyToMany
     @JoinTable(  name = "`VEH_BY_DEV`",
             joinColumns = @JoinColumn(name = "`IdDev`"),
@@ -67,6 +67,24 @@ public class Dev {
                                 }
     )
     private List<Vehicule> vehicules;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(  name = "`FCT_BY_DEV`",
+            joinColumns = @JoinColumn(name = "`IdFonction`"),
+            inverseJoinColumns ={ @JoinColumn(name = "`IdDev`"),
 
+            }
+    )
+    private List<Fonction> fonctions;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(  name = "`VALID_BY_DEV`",
+            joinColumns = @JoinColumn(name = "`IdValid`"),
+            inverseJoinColumns ={ @JoinColumn(name = "`IdDev`"),
+
+            }
+    )
+    private List<Validation> validations;
 
 }
